@@ -17,7 +17,6 @@ public class PlayerMovementScript : MonoBehaviour
     void Update()
     {
         //Horizontal and vertical movement
-
         bool keyFlag = false;
         //Debug.Log("entered update");
 
@@ -51,7 +50,5 @@ public class PlayerMovementScript : MonoBehaviour
         {
             rb.velocity += (-3f * rb.velocity * Time.deltaTime); 
         }
-
-
     }
 }
