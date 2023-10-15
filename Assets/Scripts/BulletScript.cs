@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BulletScript : MonoBehaviour
 {
@@ -42,6 +43,12 @@ public class BulletScript : MonoBehaviour
             {
                 bulletHead.Health -= bullet.Damage;
                 StartCoroutine(death());
+                if(bulletHead.Health <= 0)
+                {
+                    bulletHead.Level = 0;
+                    GameObject.Find("bulletHead").SetActive(false); //set into coroutine with some animation
+                    GameControllerScript.Instance.levelUp();
+                }
             }
             //else if() other heads
         }
@@ -51,6 +58,10 @@ public class BulletScript : MonoBehaviour
             {
                 player.Health -= bullet.Damage;
                 StartCoroutine(death());
+                if(player.Health <= 0)
+                {
+                    StartCoroutine(restartLevel());
+                }
             }
         }
     }
@@ -63,5 +74,18 @@ public class BulletScript : MonoBehaviour
         ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         yield return new WaitForSeconds(1);
         GameObject.Destroy(this.gameObject);
+    }
+
+    public IEnumerator restartLevel()
+    {
+        //sound effect perhaps
+        yield return new WaitForSeconds(0.5f);
+        if(GameControllerScript.Instance.level > 1)
+        {
+            GameControllerScript.Instance.popup = true;
+        }
+        GameControllerScript.Instance.level = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 }
