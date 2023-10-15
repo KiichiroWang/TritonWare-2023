@@ -65,11 +65,13 @@ public class BossController : MonoBehaviour
 {
     public bulletHead bulletHead;
     public spawnerHead spawnerHead;
+    public fireHead fireHead;
     // Start is called before the first frame update
     void Start()
     {
         bulletHead = new bulletHead(100, 1);
         spawnerHead = new spawnerHead(100, 1);
+        fireHead = new fireHead(100, 1);
     }
 
     // Update is called once per frame
