@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tail : MonoBehaviour
+public class HairPhysics : MonoBehaviour
 {
     public int length;
     public float smoothSpeed;
