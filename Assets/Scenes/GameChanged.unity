@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 878205369}
   - component: {fileID: 878205368}
   m_Layer: 5
-  m_Name: HPBar (1)
+  m_Name: SpawnerHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1227af17a6f340bb04bdbd07d121e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
 --- !u!114 &878205369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4470588, g: 0.6753226, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0.0627451, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1741,7 +1741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4470588, g: 0.6753226, b: 1, a: 1}
+  m_Color: {r: 0.7830189, g: 0.06237407, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1881,6 +1881,7 @@ GameObject:
   - component: {fileID: 1837514411}
   - component: {fileID: 1837514410}
   - component: {fileID: 1837514409}
+  - component: {fileID: 1837514412}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Head
@@ -1981,6 +1982,21 @@ Transform:
   m_Father: {fileID: 1324826609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1837514412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837514408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfb8b45a8edd044ea3a8fe1ea995f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 8893452952182410343, guid: b5ca1ecd545ab0d42aff0ee0121de8ee, type: 3}
+  rend: {fileID: 0}
+  open: 0
 --- !u!1 &1840020342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,7 +2009,7 @@ GameObject:
   - component: {fileID: 1840020345}
   - component: {fileID: 1840020344}
   m_Layer: 5
-  m_Name: HPBar
+  m_Name: ShooterHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2239,7 +2255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4470588, g: 0.6753226, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0.0627451, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2433,7 +2449,7 @@ GameObject:
   - component: {fileID: 1976889317}
   - component: {fileID: 1976889316}
   m_Layer: 5
-  m_Name: HPBar (2)
+  m_Name: FireHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2473,7 +2489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf1227af17a6f340bb04bdbd07d121e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 4
 --- !u!114 &1976889317
 MonoBehaviour:
   m_ObjectHideFlags: 0

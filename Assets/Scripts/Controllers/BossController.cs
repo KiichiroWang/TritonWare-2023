@@ -35,9 +35,10 @@ public class bulletHead : Head
 public class spawnerHead : Head
 {
     //flags
-    public spawnerHead(float h, int lvl) : base(h, lvl)
+    public float spawnRate { get; set; }
+    public spawnerHead(float h, int lvl, float s) : base(h, lvl)
     {
-
+        spawnRate = s;
     }
     override
     public void levelUp()
@@ -70,7 +71,7 @@ public class BossController : MonoBehaviour
     void Start()
     {
         bulletHead = new bulletHead(100, 1);
-        spawnerHead = new spawnerHead(100, 1);
+        spawnerHead = new spawnerHead(100, 1, 0.2f);
         fireHead = new fireHead(100, 1);
     }
 

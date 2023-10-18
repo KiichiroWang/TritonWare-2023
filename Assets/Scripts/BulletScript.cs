@@ -39,14 +39,20 @@ public class BulletScript : MonoBehaviour
     {
         if(bullet.Type == 1)
         {
-            if(collision.gameObject.name == "bulletHead")
+            if (collision.gameObject.tag == "Enemy")
+            {
+                StartCoroutine(death());
+                StartCoroutine(collision.gameObject.GetComponent<EnemyScript>().kill()); //set into coroutine with some animation
+            }
+            if (collision.gameObject.name == "Shooter")
             {
                 bulletHead.Health -= bullet.Damage;
                 StartCoroutine(death());
                 if(bulletHead.Health <= 0)
                 {
                     bulletHead.Level = 0;
-                    GameObject.Find("bulletHead").SetActive(false); //set into coroutine with some animation
+                    GameObject.Find("Shooter").SetActive(false); //set into coroutine with some animation
+                    GameObject.Find("ShooterHealth").SetActive(false);
                     GameControllerScript.Instance.levelUp();
                 }
             }
