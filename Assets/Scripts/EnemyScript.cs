@@ -11,11 +11,15 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     public float speed;
     public bool dead;
+    public int type;
+    public GameObject bullet;
+    public SpriteRenderer rend;
     // Start is called before the first frame update
     void Start()
     {
-        speed = 300;
+        speed = 120;
         rb = GetComponent<Rigidbody2D>();
+        rend = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
         update = false;
         StartCoroutine(dash());
@@ -27,12 +31,29 @@ public class EnemyScript : MonoBehaviour
     {
         if (update)
         {
-            if (dead)
+            if(type == 1)
             {
-                GameObject.Destroy(this.gameObject);
+                if (dead)
+                {
+                    GameObject.Destroy(this.gameObject);
+                }
+                rb.velocity = (player.transform.position - transform.position);
+                rb.velocity = speed * rb.velocity / rb.velocity.magnitude;
             }
-            rb.velocity = (player.transform.position - transform.position);
-            rb.velocity = speed * rb.velocity / rb.velocity.magnitude;
+            else if(type == 2)
+            {
+                if (dead)
+                {
+                    GameObject.Destroy(this.gameObject);
+                }
+                rb.velocity = new Vector2(0, 0);
+                float rn = Random.Range(0, 100) / 100f;
+                if (rn < (0.1f * Time.deltaTime))
+                {
+                    Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
+                }
+            }
+            
         }
     }
 
@@ -56,7 +77,7 @@ public class EnemyScript : MonoBehaviour
         }
 
         rb.velocity = target - transform.position;
-        Debug.Log(rb.velocity.x);
+        //Debug.Log(rb.velocity.x);
         yield return new WaitForSeconds(1);
         update = true;
 
@@ -64,6 +85,17 @@ public class EnemyScript : MonoBehaviour
 
     public IEnumerator kill()
     {
+        if(type == 2)
+        {
+            try
+            {
+                GameObject.Find("Spawner").GetComponent<SpawnerHeadScript>().spawned[position - 1] = false;
+            }
+            catch(System.Exception e)
+            {
+
+            }
+        }
         update = false;
         gameObject.transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;

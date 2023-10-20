@@ -10,6 +10,7 @@ public class BulletScript : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject playerObj;
     public bulletHead bulletHead;
+    public spawnerHead spawnerHead;
     public Player player;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class BulletScript : MonoBehaviour
         bullet = new Bullet(type);
         rb = GetComponent<Rigidbody2D>();
         bulletHead = GameObject.Find("BossController").GetComponent<BossController>().bulletHead;
+        spawnerHead = GameObject.Find("BossController").GetComponent<BossController>().spawnerHead;
         player = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>().player;
         if (bullet.Type == 1)
         {
@@ -56,6 +58,19 @@ public class BulletScript : MonoBehaviour
                     GameControllerScript.Instance.levelUp();
                 }
             }
+            if (collision.gameObject.name == "Spawner")
+            {
+                spawnerHead.Health -= bullet.Damage;
+                StartCoroutine(death());
+                if (spawnerHead.Health <= 0)
+                {
+                    spawnerHead.Level = 0;
+                    GameObject.Find("Spawner").SetActive(false); //set into coroutine with some animation
+                    GameObject.Find("SpawnerHealth").SetActive(false);
+                    GameControllerScript.Instance.levelUp();
+                }
+            }
+
             //else if() other heads
         }
         else if(bullet.Type == 2)

@@ -20,7 +20,7 @@ public class BulletHeadScript : MonoBehaviour
         float rn = Random.Range(0, 100)/100f;
         if(bulletHead.Level == 1)
         {
-            if(rn < (0.5f * Time.deltaTime))
+            if(rn < (0.25f * Time.deltaTime))
             {
                 Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
             }

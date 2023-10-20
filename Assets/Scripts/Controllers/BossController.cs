@@ -28,6 +28,7 @@ public class bulletHead : Head
     public void levelUp()
     {
         Level++;
+        Health = 100;
         //set flags
     }
 }
@@ -44,6 +45,7 @@ public class spawnerHead : Head
     public void levelUp()
     {
         Level++;
+        Health = 100;
         //set flags
     }
 }
@@ -59,6 +61,7 @@ public class fireHead : Head
     public void levelUp()
     {
         Level++;
+        Health = 100;
         //set flags
     }
 }
@@ -71,7 +74,7 @@ public class BossController : MonoBehaviour
     void Start()
     {
         bulletHead = new bulletHead(100, 1);
-        spawnerHead = new spawnerHead(100, 1, 0.2f);
+        spawnerHead = new spawnerHead(100, 1, 0.1f);
         fireHead = new fireHead(100, 1);
     }
 
