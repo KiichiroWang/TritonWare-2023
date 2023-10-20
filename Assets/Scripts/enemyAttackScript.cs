@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * This script is attached to the CHILD of an enemy, an empty GameObject with a trigger collider that can detect collision with the player.
+ */
 public class enemyAttackScript : MonoBehaviour
 {
     public Player player;

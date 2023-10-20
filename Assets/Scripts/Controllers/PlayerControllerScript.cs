@@ -16,6 +16,9 @@ public class Player
     }
 
 }
+/**
+ * Creates player object, class defined above
+ */
 public class PlayerControllerScript : MonoBehaviour
 {
     public Player player;

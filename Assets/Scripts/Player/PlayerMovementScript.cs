@@ -18,7 +18,6 @@ public class PlayerMovementScript : MonoBehaviour
     {
         //Horizontal and vertical movement
         bool keyFlag = false;
-        //Debug.Log("entered update");
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -41,11 +40,13 @@ public class PlayerMovementScript : MonoBehaviour
             keyFlag = true;
         }
 
+        //speed cap
         if(rb.velocity.magnitude > player.Speed)
         {
             rb.velocity *= (player.Speed / rb.velocity.magnitude);
         }
 
+        //slowdown when key is released
         if (!keyFlag)
         {
             rb.velocity += (-3f * rb.velocity * Time.deltaTime); 

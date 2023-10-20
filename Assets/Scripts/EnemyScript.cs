@@ -22,8 +22,12 @@ public class EnemyScript : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
         update = false;
-        StartCoroutine(dash());
         dead = false;
+
+        //starts the dash to the center of the screen
+        StartCoroutine(dash());
+
+
     }
 
     // Update is called once per frame
@@ -47,19 +51,39 @@ public class EnemyScript : MonoBehaviour
                     GameObject.Destroy(this.gameObject);
                 }
                 rb.velocity = new Vector2(0, 0);
-                float rn = Random.Range(0, 100) / 100f;
-                if (rn < (0.1f * Time.deltaTime))
+                float rn = Random.Range(0f, 1f);
+                if(GameControllerScript.Instance.level == 2)
                 {
-                    Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
+                    if (rn < (2f * Time.deltaTime))
+                    {
+                        Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
+                    }
                 }
+                else if (GameControllerScript.Instance.level == 3)
+                {
+                    if (rn < (4f * Time.deltaTime))
+                    {
+                        Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
+                    }
+                }
+                
             }
             
         }
     }
 
+    /*
+     * Controls the initial dash. It's slower for type 1 enemies (melee) and faster for type 2 (ranged). After the dash, the update method takes control.
+     */
     public IEnumerator dash()
     {
-        yield return new WaitForSeconds(1);
+        //There is a 1 second waiting period for melee enemies before the dash
+        if(type == 1)
+        {
+            yield return new WaitForSeconds(1);
+        }
+
+        //position denotes whether the object is the top, middle, or bottom member of that wave
         if(position == 1)
         {
             //target = new Vector3(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize * 1f / 4f, transform.position.z);
@@ -76,15 +100,26 @@ public class EnemyScript : MonoBehaviour
             target = new Vector3(0, -270, transform.position.z);
         }
 
-        rb.velocity = target - transform.position;
-        //Debug.Log(rb.velocity.x);
-        yield return new WaitForSeconds(1);
+        //dash speed
+        if(type == 1)
+        {
+            rb.velocity = target - transform.position;
+            //Debug.Log(rb.velocity.x);
+            yield return new WaitForSeconds(1);
+        }
+        else
+        {
+            rb.velocity = 2*(target - transform.position);
+            //Debug.Log(rb.velocity.x);
+            yield return new WaitForSeconds(0.5f);
+        }
         update = true;
 
     }
 
     public IEnumerator kill()
     {
+        //update the spawned array, which keeps track of when a wave is dead so it can spawn another one (only applies to ranged enemies)
         if(type == 2)
         {
             try

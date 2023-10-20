@@ -65,6 +65,10 @@ public class fireHead : Head
         //set flags
     }
 }
+/**
+ * Creates 3 objects (classes defined above) for the 3 boss heads. Was this totally necessary? No. But I had initially thought that they would be more different
+ * than they ended up being. 
+ */
 public class BossController : MonoBehaviour
 {
     public bulletHead bulletHead;

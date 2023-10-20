@@ -32,12 +32,17 @@ public class GameControllerScript : MonoBehaviour
         
     }
 
+    /**
+     * Increases level and also levels up all of the boss heads.
+     */
     public void levelUp()
     {
         level++;
         BossController bc = GameObject.Find("BossController").GetComponent<BossController>();
+        Player player = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>().player;
         bc.bulletHead.levelUp();
         bc.spawnerHead.levelUp();
         bc.fireHead.levelUp();
+        player.Health = 100;
     }
 }

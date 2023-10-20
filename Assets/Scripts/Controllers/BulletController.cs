@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/**
+ * Essentially just a bullet class with attributes about the bullet. Type 1 is a player bullet,
+ * Type 2 is an enemy bullet, and Type 3 is a enemy "fireball" from the lower head
+ * 
+ */
 public class Bullet
 {
     public int Type { get; set; }
@@ -14,13 +19,19 @@ public class Bullet
         {
             Speed = 600;
             Type = 1;
-            Damage = 5;
+            Damage = 2;
         }
         if(t == 2)
         {
             Speed = -300;
             Type = 2;
             Damage = 25;
+        }
+        if(t == 3)
+        {
+            Speed = -600;
+            Type = 3;
+            Damage = 40;
         }
     }
 }
