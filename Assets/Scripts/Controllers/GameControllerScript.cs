@@ -27,16 +27,17 @@ public class GameControllerScript : MonoBehaviour
     {
         level = 1;
         popup = false;
-        winScreen = GameObject.Find("WinScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
-        levelUpScreen = GameObject.Find("LevelUpScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+        //winScreen = GameObject.Find("WinScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+        //levelUpScreen = GameObject.Find("LevelUpScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
     }
 
     private void OnLevelWasLoaded()
     {
         level = 1;
         popup = false;
-        winScreen = GameObject.Find("WinScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
-        levelUpScreen = GameObject.Find("LevelUpScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+       // winScreen = GameObject.Find("WinScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+       // levelUpScreen = GameObject.Find("LevelUpScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
