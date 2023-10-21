@@ -7,9 +7,15 @@ public class BulletScript : MonoBehaviour
 {
     public int type;
     public Bullet bullet;
+    [HideInInspector]
     public Rigidbody2D rb;
+    [HideInInspector]
     public GameObject playerObj;
+
+    // Particles
     public GameObject hitParticles;
+    public GameObject deathParticles;
+
     public float destroyTimer;
 
     [Header("Heads")]
@@ -65,23 +71,27 @@ public class BulletScript : MonoBehaviour
                 StartCoroutine(collision.gameObject.GetComponent<EnemyScript>().kill()); //set into coroutine with some animation
             }
 
-            if (collision.gameObject.name == "Shooter")
+            if (collision.gameObject.name == "Bullet")
             {
                 bulletHead.Health -= bullet.Damage;
                 StartCoroutine(death());
                 if(bulletHead.Health <= 0)
                 {
+                    // Head Death
                     try
                     {
                         bulletHead.Level = 0;
-                        GameObject.Find("ShooterHealth").SetActive(false);
                         GameObject.Find("Shooter").SetActive(false); //set into coroutine with some animation
+                        if (deathParticles)
+                        {
+                            Instantiate(deathParticles, transform.position, Quaternion.identity);
+                        }
+
                         GameControllerScript.Instance.levelUp();
-                        //Debug.Log("leveled up");
                     }
                     catch(System.Exception e)
                     {
-                        
+                        Debug.Log(e.Message);
                     }
                     
                 }
@@ -95,13 +105,17 @@ public class BulletScript : MonoBehaviour
                     try
                     {     
                         spawnerHead.Level = 0;
-                        GameObject.Find("SpawnerHealth").SetActive(false);
-                        GameObject.Find("Spawner").SetActive(false); //set into coroutine with some animation                     
+                        GameObject.Find("Spawner").SetActive(false); //set into coroutine with some animation    
+                        if (deathParticles)
+                        {
+                            Instantiate(deathParticles, transform.position, Quaternion.identity);
+                        }
+                 
                         GameControllerScript.Instance.levelUp();
                     }
                     catch (System.Exception e)
                     {
-
+                        Debug.Log(e.Message);
                     }
                     
                 }
@@ -115,19 +129,24 @@ public class BulletScript : MonoBehaviour
                     try
                     {
                         fireHead.Level = 0;
-                        GameObject.Find("FireHealth").SetActive(false);
-                        GameObject.Find("Flame").SetActive(false); //set into coroutine with some animation                     
+                        GameObject.Find("Flame").SetActive(false); //set into coroutine with some 
+                        if (deathParticles)
+                        {
+                            Instantiate(deathParticles, transform.position, Quaternion.identity);
+                        }
+
                         GameControllerScript.Instance.levelUp();
                     }
                     catch (System.Exception e)
                     {
-
+                        Debug.Log(e.Message);
                     }
 
                 }
             }
 
         }
+        // Bullet hitting player collision
         else if(bullet.Type == 2 || bullet.Type == 3)
         {
             if (collision.gameObject.name == "Player")
@@ -135,15 +154,17 @@ public class BulletScript : MonoBehaviour
                 try
                 {
                     player.Health -= bullet.Damage;
+
                     StartCoroutine(death());
                     if (player.Health <= 0)
                     {
-                        StartCoroutine(restartLevel());
+                        //StartCoroutine(RestartLevel());
+                        playerDeath();
                     }
                 }
                 catch (System.Exception e)
                 {
-
+                    Debug.Log(e.Message);
                 }
             }
         }
@@ -163,8 +184,6 @@ public class BulletScript : MonoBehaviour
             Instantiate(hitParticles, transform.position, Quaternion.identity);
         }
 
-
-
         yield return new WaitForSeconds(1);
         GameObject.Destroy(this.gameObject);
     }
@@ -179,6 +198,15 @@ public class BulletScript : MonoBehaviour
         }
         GameControllerScript.Instance.level = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
+    private void playerDeath()
+    {
+        // hmm i hate gameobject.find but prob best method here :/
+        GameObject.Find("DeathScreenParent").transform.GetChild(0).gameObject.SetActive(true);
+        SoundManager.Instance.Play("Death");
+        Time.timeScale = 0;
 
     }
 }

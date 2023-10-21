@@ -27,7 +27,6 @@ public class EnemyScript : MonoBehaviour
         //starts the dash to the center of the screen
         StartCoroutine(dash());
 
-
     }
 
     // Update is called once per frame
@@ -128,7 +127,7 @@ public class EnemyScript : MonoBehaviour
             }
             catch(System.Exception e)
             {
-
+                Debug.Log(e.Message);
             }
         }
         update = false;

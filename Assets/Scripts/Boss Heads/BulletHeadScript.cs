@@ -24,7 +24,6 @@ public class BulletHeadScript : MonoBehaviour
             if(rn < (2.3f * Time.deltaTime))
             {
                 Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
-                Debug.Log("shooting");
             }
         }
         else if (bulletHead.Level == 2)

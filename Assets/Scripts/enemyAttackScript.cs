@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class enemyAttackScript : MonoBehaviour
 {
     public Player player;
+    public float damage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,11 +27,12 @@ public class enemyAttackScript : MonoBehaviour
     {
         if(collision.gameObject.name == "Player")
         {
-            player.Health -= 45;
+            player.Health -= damage;
             StartCoroutine(gameObject.transform.parent.gameObject.GetComponent<EnemyScript>().kill());
             if (player.Health <= 0)
             {
-                StartCoroutine(restartLevel());
+                //StartCoroutine(restartLevel());
+                playerDeath();
             }
         }
     }
@@ -44,6 +47,15 @@ public class enemyAttackScript : MonoBehaviour
         }
         GameControllerScript.Instance.level = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
+    private void playerDeath()
+    {
+        // hmm i hate gameobject.find but prob best method here :/
+        GameObject.Find("DeathScreenParent").transform.GetChild(0).gameObject.SetActive(true);
+        SoundManager.Instance.Play("Death");
+        Time.timeScale = 0;
 
     }
 }

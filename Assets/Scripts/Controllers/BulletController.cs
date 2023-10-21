@@ -19,7 +19,7 @@ public class Bullet
         {
             Speed = 600;
             Type = 1;
-            Damage = 2;
+            Damage = 200;
         }
         if(t == 2)
         {

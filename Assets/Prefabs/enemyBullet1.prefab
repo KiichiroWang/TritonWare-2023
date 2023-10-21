@@ -125,6 +125,9 @@ MonoBehaviour:
   type: 2
   rb: {fileID: 0}
   playerObj: {fileID: 0}
+  hitParticles: {fileID: 3715182236699290056, guid: 1ac0575d2e6fb874c9c6f09e5eac4f4a, type: 3}
+  deathParticles: {fileID: 5479970638482717588, guid: c4b3eab6cb6104949a406da479fee2ac, type: 3}
+  destroyTimer: 10
 --- !u!198 &3138008679653029586
 ParticleSystem:
   m_ObjectHideFlags: 0
