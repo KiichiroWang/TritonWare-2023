@@ -14,7 +14,7 @@ public class EnemyScript : MonoBehaviour
     public int type;
     public GameObject bullet;
     public SpriteRenderer rend;
-    // Start is called before the first frame update
+
     void Start()
     {
         speed = 120;
@@ -29,7 +29,6 @@ public class EnemyScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (update)

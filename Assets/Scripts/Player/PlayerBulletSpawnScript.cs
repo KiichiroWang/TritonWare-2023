@@ -12,6 +12,9 @@ public class PlayerBulletSpawnScript : MonoBehaviour
     public float shootingCooldownTime;
     private bool cooldown;
 
+    public bool poweredUp = false;
+    public float verticalOffset;
+
     void Start()
     {
         rend = GetComponent<SpriteRenderer>();
@@ -24,8 +27,16 @@ public class PlayerBulletSpawnScript : MonoBehaviour
         // Player Shooting
         if(Input.GetKey(KeyCode.Space) && !cooldown)
         {
-            //Creates bullet
-            Instantiate(bullet, shootRingPos.position, Quaternion.identity);
+            // Power Up
+            if (poweredUp)
+            {
+                PoweredUpShooting();
+            }
+            else
+            {
+                //Creates bullet
+                Instantiate(bullet, shootRingPos.position, Quaternion.identity);
+            }
 
             // Audio
             SoundManager.Instance.Play("PlayerShoot");
@@ -40,5 +51,13 @@ public class PlayerBulletSpawnScript : MonoBehaviour
     {
         yield return new WaitForSeconds(shootingCooldownTime);
         cooldown = false;
+    }
+
+    private void PoweredUpShooting()
+    {
+        // Spawns 3 
+        Instantiate(bullet, (Vector2)shootRingPos.position + new Vector2(0, verticalOffset), Quaternion.identity);
+        Instantiate(bullet, shootRingPos.position, Quaternion.identity);
+        Instantiate(bullet, (Vector2)shootRingPos.position + new Vector2(0, -verticalOffset), Quaternion.identity);
     }
 }

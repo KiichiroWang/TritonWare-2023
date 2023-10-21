@@ -8,6 +8,7 @@ public class GameControllerScript : MonoBehaviour
     public bool popup;
     public int level;
     public GameObject winScreen;
+    public GameObject levelUpScreen;
 
 
     private void Awake()
@@ -26,7 +27,16 @@ public class GameControllerScript : MonoBehaviour
     {
         level = 1;
         popup = false;
-        //winScreen = GameObject.Find("WinScreen"); // Just in case its lost on reset
+        winScreen = GameObject.Find("WinScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+        levelUpScreen = GameObject.Find("LevelUpScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+    }
+
+    private void OnLevelWasLoaded()
+    {
+        level = 1;
+        popup = false;
+        winScreen = GameObject.Find("WinScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
+        levelUpScreen = GameObject.Find("LevelUpScreenParent").transform.GetChild(0).gameObject; // Just in case its lost on reset
     }
 
     // Update is called once per frame
@@ -46,15 +56,40 @@ public class GameControllerScript : MonoBehaviour
         bc.spawnerHead.levelUp();
         bc.fireHead.levelUp();
         player.Health = 100;
+
+        if (!levelUpScreen.active)
+        {
+            levelUpScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     public void Win()
     {
         if (!winScreen.active)
         {
+            if (levelUpScreen.active)
+            {
+                levelUpScreen.SetActive(false);
+            }
             SoundManager.Instance.Play("Win");
             winScreen.SetActive(true);
             Time.timeScale = 0;
         }
+    }
+
+    // LEVEL UP GAINS
+    public void BulletUp()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBulletSpawnScript>().poweredUp = true;
+        Time.timeScale = 1;
+        levelUpScreen.SetActive(false);
+    }
+
+    public void SpeedUp()
+    {
+        GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>().IncreaseSpeed();
+        Time.timeScale = 1;
+        levelUpScreen.SetActive(false);
     }
 }

@@ -33,4 +33,9 @@ public class PlayerControllerScript : MonoBehaviour
     {
         //Debug.Log(player.Health);
     }
+
+    public void IncreaseSpeed()
+    {
+        player.Speed *= 1.5f;
+    }
 }
