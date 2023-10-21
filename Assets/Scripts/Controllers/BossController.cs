@@ -6,11 +6,13 @@ public abstract class Head
 {
     public float Health { get; set; }
     public int Level { get; set; }
+    public bool isAlive;
 
     public Head(float h, int lvl)
     {
         Health = h;
         Level = lvl;
+        isAlive = true;
     }
 
     public abstract void levelUp();
@@ -27,8 +29,13 @@ public class bulletHead : Head
     public void levelUp()
     {
         Level++;
-        Health = 100;
+        Health = 1000;
         //set flags
+
+        if (Level <= 0)
+        {
+            isAlive = false;
+        }
     }
 }
 
@@ -44,8 +51,13 @@ public class spawnerHead : Head
     public void levelUp()
     {
         Level++;
-        Health = 100;
+        Health = 1000;
+
         //set flags
+        if (Level <= 0)
+        {
+            isAlive = false;
+        }
     }
 }
 
@@ -60,10 +72,16 @@ public class fireHead : Head
     public void levelUp()
     {
         Level++;
-        Health = 100;
+        Health = 1000;
         //set flags
+
+        if (Level <= 0)
+        {
+            isAlive = false;
+        }
     }
 }
+
 /**
  * Creates 3 objects (classes defined above) for the 3 boss heads. Was this totally necessary? No. But I had initially thought that they would be more different
  * than they ended up being. 
@@ -85,6 +103,9 @@ public class BossController : MonoBehaviour
 
     void Update()
     {
-        
+        if (!bulletHead.isAlive && !spawnerHead.isAlive && !fireHead.isAlive)
+        {
+            GameControllerScript.Instance.Win();
+        }
     }
 }

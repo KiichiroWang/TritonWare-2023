@@ -28,6 +28,7 @@ public class enemyAttackScript : MonoBehaviour
         if(collision.gameObject.name == "Player")
         {
             player.Health -= damage;
+            SoundManager.Instance.Play("PlayerHurt");
             StartCoroutine(gameObject.transform.parent.gameObject.GetComponent<EnemyScript>().kill());
             if (player.Health <= 0)
             {

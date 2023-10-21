@@ -71,17 +71,24 @@ public class BulletScript : MonoBehaviour
                 StartCoroutine(collision.gameObject.GetComponent<EnemyScript>().kill()); //set into coroutine with some animation
             }
 
+            // Bullet hit Bullet Head
             if (collision.gameObject.name == "Bullet")
             {
+                // Dmg
                 bulletHead.Health -= bullet.Damage;
                 StartCoroutine(death());
-                if(bulletHead.Health <= 0)
+
+                SoundManager.Instance.Play("BossHurt");
+
+                // Head Death
+                if (bulletHead.Health <= 0)
                 {
-                    // Head Death
+
                     try
                     {
-                        bulletHead.Level = 0;
-                        GameObject.Find("Shooter").SetActive(false); //set into coroutine with some animation
+                        bulletHead.Level = -10;
+                        SoundManager.Instance.Play("BossDeath");
+                        GameObject.Find("Bullet").SetActive(false); //set into coroutine with some animation
                         if (deathParticles)
                         {
                             Instantiate(deathParticles, transform.position, Quaternion.identity);
@@ -100,12 +107,14 @@ public class BulletScript : MonoBehaviour
             {
                 spawnerHead.Health -= bullet.Damage;
                 StartCoroutine(death());
+                SoundManager.Instance.Play("BossHurt");
                 if (spawnerHead.Health <= 0)
                 {
                     try
                     {     
-                        spawnerHead.Level = 0;
+                        spawnerHead.Level = -10;
                         GameObject.Find("Spawner").SetActive(false); //set into coroutine with some animation    
+                        SoundManager.Instance.Play("BossDeath");
                         if (deathParticles)
                         {
                             Instantiate(deathParticles, transform.position, Quaternion.identity);
@@ -124,12 +133,14 @@ public class BulletScript : MonoBehaviour
             {
                 fireHead.Health -= bullet.Damage;
                 StartCoroutine(death());
+                SoundManager.Instance.Play("BossHurt");
                 if (fireHead.Health <= 0)
                 {
                     try
                     {
-                        fireHead.Level = 0;
+                        fireHead.Level = -10;
                         GameObject.Find("Flame").SetActive(false); //set into coroutine with some 
+                        SoundManager.Instance.Play("BossDeath");
                         if (deathParticles)
                         {
                             Instantiate(deathParticles, transform.position, Quaternion.identity);
@@ -154,8 +165,11 @@ public class BulletScript : MonoBehaviour
                 try
                 {
                     player.Health -= bullet.Damage;
-
                     StartCoroutine(death());
+
+                    SoundManager.Instance.Play("PlayerHurt");
+
+                    // Player Dies
                     if (player.Health <= 0)
                     {
                         //StartCoroutine(RestartLevel());

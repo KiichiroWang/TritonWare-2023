@@ -7,6 +7,8 @@ public class GameControllerScript : MonoBehaviour
     public static GameControllerScript Instance { get; set; }
     public bool popup;
     public int level;
+    public GameObject winScreen;
+
 
     private void Awake()
     {
@@ -24,12 +26,12 @@ public class GameControllerScript : MonoBehaviour
     {
         level = 1;
         popup = false;
+        //winScreen = GameObject.Find("WinScreen"); // Just in case its lost on reset
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     /**
@@ -44,5 +46,15 @@ public class GameControllerScript : MonoBehaviour
         bc.spawnerHead.levelUp();
         bc.fireHead.levelUp();
         player.Health = 100;
+    }
+
+    public void Win()
+    {
+        if (!winScreen.active)
+        {
+            SoundManager.Instance.Play("Win");
+            winScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }
