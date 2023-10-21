@@ -5,16 +5,16 @@ using UnityEngine;
 public class FireHeadScript : MonoBehaviour
 {
     public GameObject flameBullet;
-    public SpriteRenderer rend;
     public fireHead fireHead;
-    // Start is called before the first frame update
+
+    private SpriteRenderer rend;
+
     void Start()
     {
         fireHead = GameObject.Find("BossController").GetComponent<BossController>().fireHead;
         rend = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //determines spawn rates of projectiles at levels 1, 2, and 3 using rng
@@ -23,7 +23,7 @@ public class FireHeadScript : MonoBehaviour
         {
             if (rn < (0.5f * Time.deltaTime))
             {
-                Debug.Log(rn);
+                //Debug.Log(rn);
                 Instantiate(flameBullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
             }
         }

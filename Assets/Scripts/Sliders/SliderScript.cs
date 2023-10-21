@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class SliderScript : MonoBehaviour
 {
     public int type; //assign in inspector
+    public float playerHealth;
+    public float bossHealth;
     public Player player;
     public bulletHead bulletHead;
     public spawnerHead spawnerHead;
     public fireHead fireHead;
-    // Start is called before the first frame update
+
     void Start()
     {
         bulletHead = GameObject.Find("BossController").GetComponent<BossController>().bulletHead;
@@ -19,26 +21,25 @@ public class SliderScript : MonoBehaviour
         player = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>().player;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //this is all self-explanatory
 
         if(type == 1)
         {
-            gameObject.GetComponent<Slider>().value = player.Health / 100f;
+            gameObject.GetComponent<Slider>().value = player.Health / playerHealth;
         }
         else if(type == 2)
         {
-            gameObject.GetComponent<Slider>().value = bulletHead.Health / 100f;
+            gameObject.GetComponent<Slider>().value = bulletHead.Health / bossHealth;
         }
         else if(type == 3)
         {
-            gameObject.GetComponent<Slider>().value = spawnerHead.Health / 100f;
+            gameObject.GetComponent<Slider>().value = spawnerHead.Health / bossHealth;
         }
         else if(type == 4)
         {
-            gameObject.GetComponent<Slider>().value = fireHead.Health / 100f;
+            gameObject.GetComponent<Slider>().value = fireHead.Health / bossHealth;
         }
     }
 }

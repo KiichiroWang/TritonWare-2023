@@ -7,7 +7,7 @@ public class BulletHeadScript : MonoBehaviour
     public GameObject bullet;
     public SpriteRenderer rend;
     public bulletHead bulletHead;
-    // Start is called before the first frame update
+
     void Start()
     {
         bulletHead = GameObject.Find("BossController").GetComponent<BossController>().bulletHead;
@@ -24,6 +24,7 @@ public class BulletHeadScript : MonoBehaviour
             if(rn < (2.3f * Time.deltaTime))
             {
                 Instantiate(bullet, transform.position - new Vector3(rend.bounds.extents.x * 1.1f, 0, 0), Quaternion.identity);
+                Debug.Log("shooting");
             }
         }
         else if (bulletHead.Level == 2)

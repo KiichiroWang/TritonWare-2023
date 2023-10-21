@@ -9,11 +9,16 @@ public class BulletScript : MonoBehaviour
     public Bullet bullet;
     public Rigidbody2D rb;
     public GameObject playerObj;
+    public GameObject hitParticles;
+    public float destroyTimer;
+
+    [Header("Heads")]
     public bulletHead bulletHead;
     public spawnerHead spawnerHead;
     public fireHead fireHead;
+
     public Player player;
-    // Start is called before the first frame update
+
     void Start()
     {
         playerObj = GameObject.Find("Player");
@@ -41,24 +46,25 @@ public class BulletScript : MonoBehaviour
         {
             rb.velocity = new Vector2(bullet.Speed, ((playerObj.transform.position.y - transform.position.y) / (playerObj.transform.position.x - transform.position.x) * bullet.Speed) + Random.Range(-0.2f, 0.2f) * bullet.Speed);
         }
+
+        // Self Destructs 
+        Destroy(gameObject, destroyTimer);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     /*Collision Detection, pretty self explanatory.*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Player collisions with enemy
         if(bullet.Type == 1)
         {
+            // Enemy bullet collision
             if (collision.gameObject.tag == "Enemy")
             {
                 StartCoroutine(death());
                 StartCoroutine(collision.gameObject.GetComponent<EnemyScript>().kill()); //set into coroutine with some animation
             }
+
             if (collision.gameObject.name == "Shooter")
             {
                 bulletHead.Health -= bullet.Damage;
@@ -149,6 +155,16 @@ public class BulletScript : MonoBehaviour
         this.GetComponent<SpriteRenderer>().enabled = false;
         ParticleSystem ps = GetComponent<ParticleSystem>();
         ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+        // Hit SFX?
+        // Hit Particles
+        if (hitParticles != null)
+        {
+            Instantiate(hitParticles, transform.position, Quaternion.identity);
+        }
+
+
+
         yield return new WaitForSeconds(1);
         GameObject.Destroy(this.gameObject);
     }

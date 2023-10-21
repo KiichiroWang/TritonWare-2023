@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public abstract class Head
 {
     public float Health { get; set; }
@@ -74,15 +73,16 @@ public class BossController : MonoBehaviour
     public bulletHead bulletHead;
     public spawnerHead spawnerHead;
     public fireHead fireHead;
-    // Start is called before the first frame update
+
     void Start()
     {
-        bulletHead = new bulletHead(100, 1);
-        spawnerHead = new spawnerHead(100, 1, 0.1f);
-        fireHead = new fireHead(100, 1);
+        // Sets boss
+        // Changing health
+        bulletHead = new bulletHead(1000, 1);
+        spawnerHead = new spawnerHead(1000, 1, 0.1f);
+        fireHead = new fireHead(1000, 1);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
